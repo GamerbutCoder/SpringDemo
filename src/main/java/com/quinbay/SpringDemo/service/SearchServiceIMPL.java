@@ -6,7 +6,7 @@ import com.quinbay.SpringDemo.dto.ProductResponseDTO;
 import com.quinbay.SpringDemo.dto.ProductRequestSearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.quinbay.SpringDemo.constants.solrFieldNames;
+import com.quinbay.SpringDemo.constants.SolrFieldNames;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,16 +25,16 @@ public class SearchServiceIMPL implements SearchService {
         List<ProductBean> response = new ArrayList<>();
         for(HashMap<String,Object> mapObj : list){
             ProductBean pb = new ProductBean();
-            if((Integer)mapObj.get(solrFieldNames.IN_STOCK)>0)
+            if((Integer)mapObj.get(SolrFieldNames.IN_STOCK)>0)
                     pb.setInStock(true);
             else{
                 pb.setInStock(false);
             }
-            pb.setSalesPrice(Double.parseDouble(mapObj.get(solrFieldNames.OFFER_PRICE).toString()));
+            pb.setSalesPrice(Double.parseDouble(mapObj.get(SolrFieldNames.OFFER_PRICE).toString()));
 
-            pb.setTitle(mapObj.get(solrFieldNames.NAME).toString());
+            pb.setTitle(mapObj.get(SolrFieldNames.NAME).toString());
 
-            pb.setDescription(mapObj.get(solrFieldNames.DESCRIPTION).toString());
+            pb.setDescription(mapObj.get(SolrFieldNames.DESCRIPTION).toString());
 
             response.add(pb);
 
