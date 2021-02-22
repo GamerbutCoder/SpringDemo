@@ -2,7 +2,7 @@ package com.quinbay.SpringDemo.dto;
 
 public class ProductBean {
     private boolean inStock;
-    private int salesPrice;
+    private double salesPrice;
     private String description,title;
 
     @Override
@@ -19,15 +19,16 @@ public class ProductBean {
         return inStock;
     }
 
+
     public void setInStock(boolean inStock) {
         this.inStock = inStock;
     }
 
-    public int getSalesPrice() {
+    public double getSalesPrice() {
         return salesPrice;
     }
 
-    public void setSalesPrice(int salesPrice) {
+    public void setSalesPrice(double salesPrice) {
         this.salesPrice = salesPrice;
     }
 
