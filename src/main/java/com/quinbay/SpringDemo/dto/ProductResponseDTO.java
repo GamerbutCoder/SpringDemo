@@ -6,6 +6,15 @@ import java.util.Map;
 
 public class ProductResponseDTO {
    private List<ProductBean> product;
+   private List<ProductBean> locationBasedProducts;
+
+    public List<ProductBean> getLocationBasedProducts() {
+        return locationBasedProducts;
+    }
+
+    public void setLocationBasedProducts(List<ProductBean> locationBasedProducts) {
+        this.locationBasedProducts = locationBasedProducts;
+    }
 
     public List<ProductBean> getProduct() {
         return product;

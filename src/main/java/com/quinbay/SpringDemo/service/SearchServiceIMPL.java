@@ -16,17 +16,15 @@ import java.util.Map;
 
 @Service
 public class SearchServiceIMPL implements SearchService {
-    @Autowired
-    private SearchClient searchClient;
-    @Override
-    public ProductResponseDTO productSearchResponse(ProductRequestSearchDTO request) {
-        Map<String,Object> products = searchClient.getProducts(request.getSearchTerm());
-        List<HashMap<String,Object>> list = ((List<HashMap<String,Object>>)((HashMap<String,Object>)products.get("response")).get("docs"));
+
+    private List<ProductBean> searchTermBasedResponse(String query){
         List<ProductBean> response = new ArrayList<>();
-        for(HashMap<String,Object> mapObj : list){
+        Map<String,Object> productsLocationBased = searchClient.getProducts(query);
+        List<HashMap<String,Object>> listLocationBased = ((List<HashMap<String,Object>>)((HashMap<String,Object>)productsLocationBased.get("response")).get("docs"));
+        for(HashMap<String,Object> mapObj : listLocationBased){
             ProductBean pb = new ProductBean();
             if((Integer)mapObj.get(SolrFieldNames.IN_STOCK)>0)
-                    pb.setInStock(true);
+                pb.setInStock(true);
             else{
                 pb.setInStock(false);
             }
@@ -40,9 +38,19 @@ public class SearchServiceIMPL implements SearchService {
 
 
         }
+        return response;
 
+    }
+    @Autowired
+    private SearchClient searchClient;
+    @Override
+    public ProductResponseDTO productSearchResponse(ProductRequestSearchDTO request) {
         ProductResponseDTO res = new ProductResponseDTO();
-        res.setProduct(response);
+        List<ProductBean> al = searchTermBasedResponse(request.getSearchTerm());
+        res.setProduct(al);
+        String q = SolrFieldNames.STOCK_LOCATION+":"+request.getStockLocation();
+        al = searchTermBasedResponse(q);
+        res.setLocationBasedProducts(al);
         return res;
     }
 }
