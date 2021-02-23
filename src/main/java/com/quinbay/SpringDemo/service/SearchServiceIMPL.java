@@ -17,25 +17,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
-/*class searchMulti extends Thread{
-    ProductResponseDTO response;
-    String query;
-    searchMulti(ProductResponseDTO dto,String q){
-        this.response = dto;
-        this.query = q;
-        this.start();
-    }
-    public void run(){
-        SearchServiceIMPL obj = new SearchServiceIMPL();
-        if(query.startsWith("stockLocation")){
-            response.setLocationBasedProducts(obj.searchTermBasedResponse(query));
-        }
-        else {
-            response.setProduct(obj.searchTermBasedResponse(query));
-        }
-    }
-}*/
-
 @Service
 public class SearchServiceIMPL implements SearchService {
 
